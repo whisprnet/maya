@@ -4,7 +4,7 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# Load .env variables
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 SLACK_BOT = os.getenv("SLACK_BOT_TOKEN")
 CHANNEL_ID = os.getenv("SLACK_CHANNEL")
 
-# 🔧 Get username from Slack API if userId is present (for human users)
+
 def get_username_from_user_id(user_id):
     if not user_id:
         return "Unknown"
@@ -32,7 +32,7 @@ def get_username_from_user_id(user_id):
         print(f"Error fetching username for {user_id}: {e}")
         return "Unknown"
 
-# 🟢 Route to fetch Slack messages
+# Route to fetch Slack messages
 @app.route("/slack-messages", methods=["GET"])
 def get_slack_messages():
     try:
@@ -71,7 +71,7 @@ def get_slack_messages():
         print(f"Slack API error: {e}")
         return jsonify(error="Failed to fetch messages from Slack"), 500
 
-# WebSocket connection
+
 @socketio.on("connect")
 def handle_connect():
     print("Client connected via WebSocket")
